@@ -104,7 +104,7 @@ class ResumeParse:
 
 if __name__ == "__main__":
     parser = ResumeParse()
-    file_path = 'resume.pdf'  
+    file_path = 'resume.pdf'  #or docx
     resume_lines, full_text = parser.read_file(file_path)
    
     resume_segments = parser.professional_summery(resume_lines)
