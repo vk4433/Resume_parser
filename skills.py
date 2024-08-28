@@ -74,7 +74,7 @@ def extract_skills(text):
 
 
 if __name__ == "__main__":
-    file_path = 'preethi.pdf'
+    file_path = 'resume.pdf'
     resume_lines, full_text = read_file(file_path)
 
 

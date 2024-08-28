@@ -182,4 +182,4 @@ if __name__ == "__main__":
     company = parser.filter_company(education_information, companies)
 
     filtered_companies_by_skills = parser.filter_companies_by_skills(company)
-    print("Companies after skills filter:", filtered_companies_by_skills)
+    print("organizations in resume:", filtered_companies_by_skills)

@@ -92,7 +92,7 @@ class ResumeParse:
                 section_started = True
                 continue
             elif capturing:
-                if len(re.findall(r'[A-Z]', line)) / len(line) >= 0.5 or len(line) >=30:
+                if len(re.findall(r'[A-Z]', line)) / len(line) >= 0.2:
                     capturing = False
                     break
                 professional_summary_section.append(line)
@@ -104,7 +104,7 @@ class ResumeParse:
 
 if __name__ == "__main__":
     parser = ResumeParse()
-    file_path = 'Narendra.pdf'  
+    file_path = 'resume.pdf'  
     resume_lines, full_text = parser.read_file(file_path)
    
     resume_segments = parser.professional_summery(resume_lines)
