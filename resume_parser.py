@@ -13,19 +13,12 @@ nlp = spacy.load('en_core_web_sm')
 nlp_t = spacy.load('en_core_web_trf')
 matcher = Matcher(nlp.vocab)
 
-RESERVED_WORDS = [
-    'school', 'college', 'university', 'academy', 'faculty', 'institute',
-    'faculdades', 'Schola', 'schule', 'lise', 'lyceum', 'lycee',
-    'polytechnic', 'kolej', 'ünivers', 'okul', 'bachelor', 'masters',
-    'bachelors', 'nit'
-]
-
 class ResumeParse:
-    objective_keywords = (
-        "career goal", "objective", "career objective", "employment objective",
-        "professional objective", "career summary", "professional summary",
-        "summary of qualifications", "summary", "PROFESSIONAL SUMMARY",
-        "SUMMARY", "Professional Summary", "profile", "About Me"
+    RESERVED_WORDS = (
+        'school', 'college', 'university', 'academy', 'faculty', 'institute',
+        'faculdades', 'Schola', 'schule', 'lise', 'lyceum', 'lycee',
+        'polytechnic', 'kolej', 'ünivers', 'okul', 'bachelor', 'masters',
+        'bachelors', 'nit'
     )
 
     file_path = os.path.join(base_path, "LINKEDIN_SKILLS_ORIGINAL.txt")
@@ -107,8 +100,6 @@ class ResumeParse:
 
             if match_found:
                 return match_found.text
-
-        print("No name found that matches the patterns")
         return None
 
     def find_email(self, full_text):
@@ -121,14 +112,14 @@ class ResumeParse:
             if phone_numbers:
                 return phone_numbers[0].raw_string
         except Exception as e:
-            print(f"Error with phonenumbers: {e}")
+            pass
 
         try:
             match = re.search(r'\+?\d[\d\s\-\(\)\.]{7,}\d', text)
             if match:
                 return match.group()
         except Exception as e:
-            print(f"Error with regex: {e}")
+            pass
 
         return ""
 
@@ -142,7 +133,7 @@ class ResumeParse:
         college = [ent.text for ent in doc.ents if ent.label_ == 'ORG']
         education = set()
         for clg in college:
-            for word in RESERVED_WORDS:
+            for word in ResumeParse.RESERVED_WORDS:
                 if word.lower() in clg.lower():
                     education.add(clg)
         return education
@@ -162,7 +153,7 @@ class ResumeParse:
 
 if __name__ == "__main__":
     parser = ResumeParse()
-    file_path = 'resume.pdf' #or doc
+    file_path = 'resume.pdf'
     resume_lines, full_text = parser.read_file(file_path)
 
     candidate_name = parser.extract_name(resume_lines)
