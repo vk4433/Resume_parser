@@ -5,12 +5,10 @@ import docx2txt
 import pdfplumber
 import spacy
 from spacy.matcher import Matcher
-import phonenumbers
 from spacy.matcher import PhraseMatcher
 base_path = os.path.dirname(__file__)
 
-# Load the spaCy language model
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_trf')
 matcher = Matcher(nlp.vocab)
 
 file = os.path.join(base_path,"LINKEDIN_SKILLS_ORIGINAL.txt")

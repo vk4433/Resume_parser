@@ -2,7 +2,7 @@ import os
 import re
 import docx
 import spacy
-import fitz
+import pdfplumber
 import logging
 import phonenumbers
 from spacy.matcher import Matcher, PhraseMatcher
@@ -45,8 +45,10 @@ class ResumeParse:
 
     def extract_text_pdf(self, pdf_file):
         try:
-            with fitz.open(pdf_file) as pdf:
-                text = "".join(page.get_text() for page in pdf)
+            with pdfplumber.open(pdf_file) as pdf:
+                text = ''
+                for page in pdf.pages:
+                    text += page.extract_text() or ''
             clean_text = re.sub(r'\n+', '\n', text)
             clean_text = clean_text.replace("\r", "\n").replace("\t", " ")
             resume_lines = clean_text.splitlines()
@@ -166,11 +168,13 @@ if __name__ == "__main__":
     print("Extracted Phone Number:", phone)
 
     companies = parser.extract_companies(full_text)
+    print("Extracted Companies:", companies)
 
     education_information = parser.extract_education(full_text)
-    print("education_information:", education_information)
+    print("Extracted Education Information:", education_information)
 
     company = parser.filter_company(education_information, companies)
+    print("Filtered Companies:", company)
 
     filtered_companies_by_skills = parser.filter_companies_by_skills(company)
-    print("organizations in resume:", filtered_companies_by_skills)
+    print("Filtered Companies by Skills:", filtered_companies_by_skills)
