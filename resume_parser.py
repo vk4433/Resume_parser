@@ -167,14 +167,12 @@ if __name__ == "__main__":
     phone = parser.find_phone(full_text)
     print("Extracted Phone Number:", phone)
 
-    companies = parser.extract_companies(full_text)
-    print("Extracted Companies:", companies)
+    org = parser.extract_companies(full_text)
 
     education_information = parser.extract_education(full_text)
     print("Extracted Education Information:", education_information)
 
-    company = parser.filter_company(education_information, companies)
-    print("Filtered Companies:", company)
+    company = parser.filter_company(education_information, org)
 
     filtered_companies_by_skills = parser.filter_companies_by_skills(company)
-    print("Filtered Companies by Skills:", filtered_companies_by_skills)
+    print("Filtered Companies :", filtered_companies_by_skills)
