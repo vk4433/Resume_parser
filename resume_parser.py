@@ -17,7 +17,7 @@ class ResumeParse:
     RESERVED_WORDS = (
         'school', 'college', 'university', 'academy', 'faculty', 'institute',
         'faculdades', 'Schola', 'schule', 'lise', 'lyceum', 'lycee',
-        'polytechnic', 'kolej', 'ünivers', 'okul', 'bachelor', 'masters',
+        'polytechnic', 'kolej', 'ünivers', 'okul', 'bachelor', 'masters','vidya'
         'bachelors', 'nit'
     )
 

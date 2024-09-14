@@ -58,8 +58,6 @@ def extract_skills(text):
         skills = []
 
         __nlp = nlp(text.lower())
-        # Only run nlp.make_doc to speed things up
-
         matches = skillsmatcher(__nlp)
         for match_id, start, end in matches:
             span = __nlp[start:end]
